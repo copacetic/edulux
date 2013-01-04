@@ -6,6 +6,7 @@ pygame.font.init()
 from pygame.locals import *
 
 now = pygame.time.get_ticks()
+font = pg.font.SysFont("Arial", 6)
 
 size = width,height = 800,600
 
@@ -15,7 +16,7 @@ c_blue = 0,0,255
 c_white = 255,255,255
 c_black = 0,0,0
 
-"""
+
 class Light:
     def __init__(self, color, pos, radius, id_code):
         self.color = color
@@ -23,12 +24,12 @@ class Light:
         self.radius = radius
         self.id_code = id_code
 
-    def set_color(color):
+    def set_color(self, color):
         self.color = color
 
-    def draw():
-        pygame.draw.circ
-"""
+    def draw(self):
+        pygame.draw.circle(screen, self.color, self.pos, self.radius)
+
 
 def draw_rings(first_radius, ring_radius):
     for ring_numb in reversed(range (1,9)):
@@ -36,7 +37,7 @@ def draw_rings(first_radius, ring_radius):
         pygame.draw.circle(screen, c_black, center, ring_numb*first_radius)
 
 
-def draw_lights(first_radius, ring_radius):
+def draw_lights(first_radius, ring_radius, light_radius):
     ring_one_difference = 102-87
     ring_two_difference = 124-109
     ring_three_difference = 86-71
@@ -46,14 +47,17 @@ def draw_lights(first_radius, ring_radius):
     ring_seven_difference = 64-1
     ring_eight_difference = 118-53
     ring_array = [ring_one_difference, ring_two_difference, ring_three_difference, ring_four_difference, ring_five_difference, ring_six_difference, ring_seven_difference, ring_eight_difference]
-
+    light_id = 0
     for ring_number in range (8):
         number_of_lights = ring_array[ring_number] + 1
         for light_number in range (number_of_lights):
             radians = math.radians(360.0*light_number/number_of_lights)
             x = (first_radius + first_radius*ring_number + ring_radius/2)*math.cos(radians) + center[0]
             y = (first_radius + first_radius*ring_number + ring_radius/2)*math.sin(radians) + center[1]
-            pygame.draw.circle(screen, c_red, (int(x),int(y)),3)
+            light = Light(c_red, (int(x),int(y)), light_radius, light_id)
+            light_id += 1
+            light.draw()
+
 """
 def draw_diagram():
     draw_lights()
@@ -90,7 +94,7 @@ if __name__ == "__main__":
         """
         center = (300,300)
         draw_rings(30,10)
-        draw_lights(30,10)
+        draw_lights(30,10,3)
         pygame.display.flip()
         
     pygame.quit()
