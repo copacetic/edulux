@@ -77,8 +77,6 @@ def draw_lights():
         light = light_list[i]
         light.draw()
 
-    
-
 def draw_diagram(first_radius, ring_thickness, number_of_rings, light_radius, radius_array):
     for i in range(1,number_of_rings):
         radius_array[i] += radius_array[i-1] 
@@ -97,4 +95,3 @@ def keep_run():
         for event in pygame.event.get():
             if event.type == pygame.QUIT: cont = False;
 
-		
