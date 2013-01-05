@@ -91,7 +91,7 @@ def init():
 def keep_run():
     cont = True
     while cont:
-        start_time = pygame.time.get_ticks()
         for event in pygame.event.get():
             if event.type == pygame.QUIT: cont = False;
+    pygame.quit()
 
