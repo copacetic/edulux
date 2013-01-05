@@ -5,8 +5,6 @@ pygame.init()
 pygame.font.init()
 from pygame.locals import *
 
-now = pygame.time.get_ticks()
-
 c_green = 0,255,0
 c_red = 255,0,0
 c_blue = 0,0,255
