@@ -21,12 +21,28 @@ pygame.display.set_caption("Fountain Simulation")
 screen = pygame.display.set_mode(size)
 screen.fill(c_black)
 font = pygame.font.SysFont("Arial", 10)
-
+    
 showRings = False
 showNumb = False
 
 light_list = []
 
+class Group:
+    def __init__(self, contents, sort):
+        self.contents = contents
+        self.sort = sort
+        if sort:
+            contents = sorted(contents)
+
+    def __getitem__(self, index):
+        return self.contents[index]
+    
+    def set_color(self, color):
+	for light in self.contents:
+            light.set_color(color)
+
+
+  
 class Light:
     def __init__(self, pos, radius, id_code, universe, real_id, color = c_lightgrey):
         self.color = color
@@ -35,6 +51,10 @@ class Light:
         self.id_code = id_code
         self.universe = universe
         self.real_id = real_id
+
+    def __cmp__(self, other):
+        if self.id_code > other.id_code: return 1
+	else: return -1
 
     def set_color(self, color):
         self.color = color
