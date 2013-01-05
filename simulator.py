@@ -14,7 +14,7 @@ c_darkgrey = 20,20,20
 c_lightgrey = 150,150,150
 
 pos=[100,100]
-radius_array = [30,40,30,30,30,40,50,50]
+radius_array = [30,40,30,30,30,40,50,50,40]
 size = width,height = 900,800
 center = width/2,height/2
 pygame.display.set_caption("Fountain Simulation")
@@ -92,7 +92,9 @@ def compute_lights(number_of_rings, ring_thickness, light_radius, radius_array):
     ring_five_difference = (108-65, 210.7, 2)
     ring_six_difference = (54-1, 210, 3)
     ring_seven_difference = (64-1, 209, 2)
-    ring_array = [ring_zero_difference, ring_one_difference, ring_two_difference, ring_three_difference, ring_four_difference, ring_five_difference, ring_six_difference, ring_seven_difference]
+    ring_eight_difference = (118-53, 209, 1, 30,60)
+    ring_nine_difference = (52-25, 150, 1, 8.57, 81.43)
+    ring_array = [ring_zero_difference, ring_one_difference, ring_two_difference, ring_three_difference, ring_four_difference, ring_five_difference, ring_six_difference, ring_seven_difference, ring_eight_difference, ring_nine_difference]
     light_id = 0
     count3 = 107
     count2 = 124
@@ -100,9 +102,18 @@ def compute_lights(number_of_rings, ring_thickness, light_radius, radius_array):
     for ring_number in range (number_of_rings):
         number_of_lights = ring_array[ring_number][0]+ 1
         for light_number in range (number_of_lights):
-            radians = -math.radians(360.0*light_number/number_of_lights) + math.radians(ring_array[ring_number][1])
-            x = (ring_thickness/2 + radius_array[ring_number])*math.cos(radians) + center[0]
-            y = (ring_thickness/2 + radius_array[ring_number])*math.sin(radians) + center[1]
+            if ring_number > 7:
+                print 360.0*light_number/(ring_array[ring_number][0]*12/4)
+                radians = -math.radians(360.0*light_number/(ring_array[ring_number][0]*12/4)) + math.radians(ring_array[ring_number][1])
+                acc_angle = 0
+                if light_number%7 == 0:
+                    acc_angle = math.radians(60) - radians
+                x = (ring_thickness/2 + radius_array[ring_number])*math.cos(radians+acc_angle) + center[0]
+                y = (ring_thickness/2 + radius_array[ring_number])*math.sin(radians+acc_angle) + center[1]
+            else:
+                radians = -math.radians(360.0*light_number/number_of_lights) + math.radians(ring_array[ring_number][1])
+                x = (ring_thickness/2 + radius_array[ring_number])*math.cos(radians) + center[0]
+                y = (ring_thickness/2 + radius_array[ring_number])*math.sin(radians) + center[1]
             uni_number = ring_array[ring_number][2]
             if uni_number == 3:
                 light_list.append(Light((int(x),int(y)), light_radius, light_id, uni_number, count3))
@@ -113,6 +124,7 @@ def compute_lights(number_of_rings, ring_thickness, light_radius, radius_array):
             else:
                 light_list.append(Light((int(x),int(y)), light_radius, light_id, uni_number, count1))
                 count1 -= 1
+
             light_id += 1
 
 def draw_lights():
@@ -120,7 +132,7 @@ def draw_lights():
         light = light_list[i]
         light.draw()
 
-def draw_diagram(first_radius, ring_thickness, number_of_rings, light_radius, radius_array):
+def draw_diagram(ring_thickness, number_of_rings, light_radius, radius_array):
     for i in range(1,number_of_rings):
         radius_array[i] += radius_array[i-1] 
     if showRings:
@@ -137,7 +149,7 @@ def init(should_show_ring, should_show_numb):
     if should_show_numb:
         showNumb = True
 	
-    draw_diagram(30,10,8,8,radius_array)
+    draw_diagram(10,len(radius_array),8,radius_array)
     pygame.display.flip()
 
 def keep_run():
