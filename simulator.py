@@ -28,7 +28,7 @@ class Light:
 
     def set_color(self, color):
         self.color = color
-	self.draw()
+        self.draw()
 
     def draw(self):
         pygame.draw.circle(screen, self.color, self.pos, self.radius)
