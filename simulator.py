@@ -7,8 +7,6 @@ from pygame.locals import *
 
 now = pygame.time.get_ticks()
 
-size = width,height = 900,800
-
 c_green = 0,255,0
 c_red = 255,0,0
 c_blue = 0,0,255
@@ -16,6 +14,15 @@ c_white = 255,255,255
 c_black = 0,0,0
 c_darkgrey = 20,20,20
 c_lightgrey = 150,150,150
+
+
+pos=[100,100]
+radius_array = [30,40,30,30,30,40,50,50]
+size = width,height = 900,800
+center = width/2,height/2
+pygame.display.set_caption("Fountain Simulation")
+screen = pygame.display.set_mode(size)
+screen.fill(c_black)
 
 light_list = []
 
@@ -29,6 +36,7 @@ class Light:
     def set_color(self, color):
         self.color = color
 	self.draw()
+        pygame.display.flip()
 
     def draw(self):
         pygame.draw.circle(screen, self.color, self.pos, self.radius)
@@ -78,25 +86,15 @@ def draw_diagram(first_radius, ring_thickness, number_of_rings, light_radius, ra
     compute_lights(number_of_rings, ring_thickness, light_radius, radius_array)
     draw_lights()
 
-if __name__ == "__main__":
-    
-    screen = pygame.display.set_mode(size)
-    pygame.display.set_caption("Fountain Simulation")
+def init():
+    draw_diagram(30,10,8,8,radius_array)
+    pygame.display.flip()
 
-   
-    
-
+def keep_run():
     cont = True
-    pos=[100,100]
     while cont:
         start_time = pygame.time.get_ticks()
         for event in pygame.event.get():
             if event.type == pygame.QUIT: cont = False;
-        screen.fill(c_black)
 
-        radius_array = [30,40,30,30,30,40,50,50]
-        center = (width/2,height/2)
-        draw_diagram(30,10,8,5,radius_array)
-        pygame.display.flip()
-        
-    pygame.quit()
+		
