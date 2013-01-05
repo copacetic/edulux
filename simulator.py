@@ -13,7 +13,6 @@ c_black = 0,0,0
 c_darkgrey = 20,20,20
 c_lightgrey = 150,150,150
 
-
 pos=[100,100]
 radius_array = [30,40,30,30,30,40,50,50]
 size = width,height = 900,800
@@ -22,6 +21,9 @@ pygame.display.set_caption("Fountain Simulation")
 screen = pygame.display.set_mode(size)
 screen.fill(c_black)
 font = pygame.font.SysFont("Arial", 10)
+
+showRings = False
+showNumb = False
 
 light_list = []
 
@@ -41,10 +43,13 @@ class Light:
 
     def draw(self):
         pygame.draw.circle(screen, self.color, self.pos, self.radius)
-        real_label = font.render(str(self.real_id), 1, c_white)
-        local_label = font.render(str(self.id_code), 1, c_green)
-        screen.blit(local_label, (self.pos[0]-10,self.pos[1]-10))
-        screen.blit(real_label, self.pos)
+        
+        if showNumb:
+            local_label = font.render(str(self.id_code), 1, c_white)
+            screen.blit(local_label, (self.pos[0],self.pos[1]))
+
+        #real_label = font.render(str(self.real_id), 1, c_white)
+        #screen.blit(real_label, self.pos)
 
 
 def draw_rings(ring_thickness, number_of_rings, radius_array):
@@ -95,11 +100,20 @@ def draw_lights():
 def draw_diagram(first_radius, ring_thickness, number_of_rings, light_radius, radius_array):
     for i in range(1,number_of_rings):
         radius_array[i] += radius_array[i-1] 
-    draw_rings(ring_thickness, number_of_rings, radius_array)
+    if showRings:
+        draw_rings(ring_thickness, number_of_rings, radius_array)
+
     compute_lights(number_of_rings, ring_thickness, light_radius, radius_array)
     draw_lights()
 
-def init():
+def init(should_show_ring, should_show_numb):
+    global showRings, showNumb
+
+    if should_show_ring:
+        showRings = True
+    if should_show_numb:
+        showNumb = True
+	
     draw_diagram(30,10,8,8,radius_array)
     pygame.display.flip()
 

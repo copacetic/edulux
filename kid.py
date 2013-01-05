@@ -1,7 +1,7 @@
 import simulator as sim
 import random
 
-sim.init()
+sim.init(False, True)
 
 sim.light_list[50].set_color((255,0,0))
 
