@@ -27,11 +27,12 @@ screen.fill(c_black)
 light_list = []
 
 class Light:
-    def __init__(self, pos, radius, id_code, color = c_lightgrey):
+    def __init__(self, pos, radius, id_code, universe, color = c_lightgrey):
         self.color = color
         self.pos = pos
         self.radius = radius
         self.id_code = id_code
+        self.universe = universe
 
     def set_color(self, color):
         self.color = color
@@ -51,25 +52,25 @@ def draw_rings(ring_thickness, number_of_rings, radius_array):
 def compute_lights(number_of_rings, ring_thickness, light_radius, radius_array):
     global light_list
 
-    ring_zero_difference = 107-103
-    ring_one_difference = 102-87
-    ring_two_difference = 124-109
-    ring_three_difference = 86-71
-    ring_four_difference = 70-55
-    ring_five_difference = 108-65
-    ring_six_difference = 54-1
-    ring_seven_difference = 64-1
-    ring_eight_difference = 118-53
-    ring_array = [ring_zero_difference, ring_one_difference, ring_two_difference, ring_three_difference, ring_four_difference, ring_five_difference, ring_six_difference, ring_seven_difference, ring_eight_difference]
+    ring_zero_difference = (107-103, 162 ,3)
+    ring_one_difference = (102-87, 175.5 ,3)
+    ring_two_difference = (124-109, 198, 2)
+    ring_three_difference = (86-71, 175.5, 3)
+    ring_four_difference = (70-55, 198, 3)
+    ring_five_difference = (108-65, 205, 2)
+    ring_six_difference = (54-1, 209.1, 3)
+    ring_seven_difference = (64-1, 209.1, 2)
+    ring_array = [ring_zero_difference, ring_one_difference, ring_two_difference, ring_three_difference, ring_four_difference, ring_five_difference, ring_six_difference, ring_seven_difference]
     light_id = 1
 
     for ring_number in range (number_of_rings):
-        number_of_lights = ring_array[ring_number] + 1
+        number_of_lights = ring_array[ring_number][0]+ 1
         for light_number in range (number_of_lights):
-            radians = math.radians(360.0*light_number/number_of_lights) + math.radians(18)
+            radians = -math.radians(360.0*light_number/number_of_lights) + math.radians(ring_array[ring_number][1])
             x = (ring_thickness/2 + radius_array[ring_number])*math.cos(radians) + center[0]
             y = (ring_thickness/2 + radius_array[ring_number])*math.sin(radians) + center[1]
-            light_list.append(Light((int(x),int(y)), light_radius, light_id))
+
+            light_list.append(Light((int(x),int(y)), light_radius, light_id, ring_array[ring_number][2]))
             light_id += 1
 
 def draw_lights():
