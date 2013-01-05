@@ -35,7 +35,7 @@ class Light:
 
     def set_color(self, color):
         self.color = color
-	self.draw()
+        self.draw()
         pygame.display.flip()
 
     def draw(self):
