@@ -32,7 +32,7 @@ class Group:
         self.contents = contents
         self.sort = sort
         if sort:
-            contents = sorted(contents)
+            self.contents = sorted(contents)
 
     def __getitem__(self, index):
         return self.contents[index]
@@ -40,8 +40,8 @@ class Group:
     def set_color(self, color):
 	for light in self.contents:
             light.set_color(color)
-
-
+    def length(self):
+	return len(self.contents)
   
 class Light:
     def __init__(self, pos, radius, id_code, universe, real_id, color = c_lightgrey):
@@ -60,6 +60,9 @@ class Light:
         self.color = color
         self.draw()
         pygame.display.flip()
+
+    def off():
+	self.set_color(c_lightgrey)
 
     def draw(self):
         pygame.draw.circle(screen, self.color, self.pos, self.radius)

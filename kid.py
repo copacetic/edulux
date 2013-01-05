@@ -1,13 +1,13 @@
 import simulator as sim
 import random
+import time
 
-sim.init(True, True)
+sim.init(False, False)
 
-monkey = sim.Group([sim.light_list[3],sim.light_list[1]], True)
+allgroup = sim.Group(sim.light_list,False)
 
-print monkey[0].id_code
-print monkey[1].id_code
-
-monkey.set_color((255,0,0))
+for i in range(allgroup.length()):
+    allgroup[i].set_color((0,0,255))
+    time.sleep(0.1)
 
 sim.keep_run()
