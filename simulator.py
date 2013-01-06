@@ -28,7 +28,7 @@ showNumb = False
 light_list = []
 
 class Group:
-    def __init__(self, contents, sort):
+    def __init__(self, sort, contents):
         self.contents = contents
         self.sort = sort
         if sort:
@@ -45,6 +45,20 @@ class Group:
             light.set_color(color)
     def length(self):
         return len(self.contents)
+    
+    @staticmethod
+    def groupify (*args):
+        l = list(args)
+        return Group(False, l)
+
+    @staticmethod 
+    def merge (sort, *args):
+        l = []
+        for arg in args:
+            l.extend(arg.contents)
+        return Group(sort, l)
+
+
   
 class Light:
     def __init__(self, pos, radius, id_code, universe, real_id, color = c_lightgrey):
@@ -62,18 +76,15 @@ class Light:
     def set_color(self, color):
         self.color = color
         self.draw()
-        pygame.display.flip()
         #hayg.set_light(self.universe,(self.real_id*(3-2)),(self.real_id(3-1)),(self.real_id(3-0)),color[0],color[1],color[2])  
     def off():
         self.set_color(c_lightgrey)
 
     def draw(self):
         pygame.draw.circle(screen, self.color, self.pos, self.radius)
-        
         if showNumb:
             local_label = font.render(str(self.id_code), 1, c_white)
             screen.blit(local_label, (self.pos[0],self.pos[1]))
-
         #real_label = font.render(str(self.real_id), 1, c_white)
         #screen.blit(real_label, (self.pos[0]-10,self.pos[1]-10))
 
@@ -144,8 +155,11 @@ def draw_diagram(ring_thickness, number_of_rings, light_radius, radius_array):
     compute_lights(number_of_rings, ring_thickness, light_radius, radius_array)
     draw_lights()
 
+def flush_pygame():
+    pygame.display.flip()
+
 """
-def flush()
+def flush():
     for i in range(1,4)
         hayg.flush(i)
 """
