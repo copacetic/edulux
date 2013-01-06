@@ -31,17 +31,18 @@ all_group = sim.Group(sim.light_list,False)
 ring_list = []
 ring_numbs = [(0,4),(5,20),(21,36),(37,52),(53,68),(69,112),(113,166),(167,230),(231,296),(297,324),(325,332)]
 
-for i in range(
+for r in range(len(ring_numbs)):
+    ring_list.append(sim.Group([],False))
+    for i in range(ring_numbs[r][0],ring_numbs[r][1] +1):
+        ring_list[r].append(sim.light_list[i])
 
-
-
-
+ring_group = sim.Group(ring_list,False)
 
 #################################
 
 
-for i in range(odd_group.length()):
-    #odd_group[i].set_color((0,0,255))
-    time.sleep(0.01)
+for i in range(ring_group.length()):
+    ring_group[i].set_color((255,0,0))
+    time.sleep(0.05)
 
 sim.keep_run()

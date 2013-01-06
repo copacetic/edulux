@@ -36,6 +36,9 @@ class Group:
 
     def __getitem__(self, index):
         return self.contents[index]
+
+    def append(self, item):
+	self.contents.append(item)
     
     def set_color(self, color):
         for light in self.contents:
@@ -106,7 +109,6 @@ def compute_lights(number_of_rings, ring_thickness, light_radius, radius_array):
         acc_angle = 0
         for light_number in range (number_of_lights):
             if ring_number > 8:
-                print ring_number
                 radians = -math.radians(360.0*light_number/(ring_array[ring_number][0]*ring_array[ring_number][4])) + math.radians(ring_array[ring_number][1])
                 if light_number%ring_array[ring_number][5] == 0 and light_number != 0:
                     acc_angle += math.radians(ring_array[ring_number][3] - (360.0/(ring_array[ring_number][0]*ring_array[ring_number][4])))
