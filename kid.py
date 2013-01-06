@@ -2,7 +2,7 @@ import simulator as sim
 import random
 import time
 
-sim.init(True, False)
+sim.init(True, True)
 
 ######### Even Group ###########
 
