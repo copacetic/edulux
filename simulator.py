@@ -1,5 +1,5 @@
 
-import sys, pygame, random, math
+import sys, pygame, random, math, threading
 random.seed()
 pygame.init()
 pygame.font.init()
@@ -37,8 +37,14 @@ class Group:
     def __getitem__(self, index):
         return self.contents[index]
 
+    def __str__(self):
+        return str(self.contents)
+    
+    def __repr__(self):
+        return str(self.contents)
+
     def append(self, item):
-	self.contents.append(item)
+        self.contents.append(item)
     
     def set_color(self, color):
         for light in self.contents:
@@ -58,8 +64,6 @@ class Group:
             l.extend(arg.contents)
         return Group(sort, l)
 
-
-  
 class Light:
     def __init__(self, pos, radius, id_code, universe, real_id, color = c_lightgrey):
         self.color = color
@@ -72,6 +76,12 @@ class Light:
     def __cmp__(self, other):
         if self.id_code > other.id_code: return 1
         else: return -1
+
+    def __str__(self):
+        return str(self.id_code)
+
+    def __repr__(self):
+        return str(self.id_code)
 
     def set_color(self, color):
         self.color = color
@@ -172,6 +182,8 @@ def init(should_show_ring, should_show_numb):
     if should_show_numb:
         showNumb = True
     draw_diagram(10,len(radius_array),8,radius_array)
+    t = threading.Thread(target=keep_run)
+    t.start()
     pygame.display.flip()
 
 def keep_run():
