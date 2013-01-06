@@ -38,10 +38,10 @@ class Group:
         return self.contents[index]
     
     def set_color(self, color):
-	for light in self.contents:
+        for light in self.contents:
             light.set_color(color)
     def length(self):
-	return len(self.contents)
+        return len(self.contents)
   
 class Light:
     def __init__(self, pos, radius, id_code, universe, real_id, color = c_lightgrey):
@@ -54,7 +54,7 @@ class Light:
 
     def __cmp__(self, other):
         if self.id_code > other.id_code: return 1
-	else: return -1
+        else: return -1
 
     def set_color(self, color):
         self.color = color
@@ -62,7 +62,7 @@ class Light:
         pygame.display.flip()
 
     def off():
-	self.set_color(c_lightgrey)
+        self.set_color(c_lightgrey)
 
     def draw(self):
         pygame.draw.circle(screen, self.color, self.pos, self.radius)
@@ -104,18 +104,17 @@ def compute_lights(number_of_rings, ring_thickness, light_radius, radius_array):
     acc_angle = 0
     for ring_number in range(number_of_rings):
         number_of_lights = ring_array[ring_number][0]+ 1
-	print number_of_lights
+        print number_of_lights
         for light_number in range (number_of_lights):
             if ring_number > 8:
                 print c, ring_number
-		c+=1
+                c+=1
                 #print 360.0*light_number/(ring_array[ring_number][0]*12/4)
                 radians = -math.radians(360.0*light_number/(ring_array[ring_number][0]*3)) + math.radians(ring_array[ring_number][1])
                 if light_number%7 == 0 and light_number != 0:
-		    print 'monkey'
-                    acc_angle += math.radians(60) - radians
-                x = (ring_thickness/2 + radius_array[ring_number])*math.cos(radians+acc_angle) + center[0]
-                y = (ring_thickness/2 + radius_array[ring_number])*math.sin(radians+acc_angle) + center[1]
+                    acc_angle += math.radians(60.0 - (360.0/(ring_array[ring_number][0]*3)))
+                x = (ring_thickness/2 + radius_array[ring_number])*math.cos(radians-acc_angle) + center[0]
+                y = (ring_thickness/2 + radius_array[ring_number])*math.sin(radians-acc_angle) + center[1]
             else:
                 radians = -math.radians(360.0*light_number/number_of_lights) + math.radians(ring_array[ring_number][1])
                 x = (ring_thickness/2 + radius_array[ring_number])*math.cos(radians) + center[0]
@@ -154,7 +153,6 @@ def init(should_show_ring, should_show_numb):
         showRings = True
     if should_show_numb:
         showNumb = True
-	
     draw_diagram(10,len(radius_array),8,radius_array)
     pygame.display.flip()
 
