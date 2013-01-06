@@ -72,7 +72,7 @@ class Light:
             screen.blit(local_label, (self.pos[0],self.pos[1]))
 
         #real_label = font.render(str(self.real_id), 1, c_white)
-        #screen.blit(real_label, self.pos)
+        #screen.blit(real_label, (self.pos[0]-10,self.pos[1]-10))
 
 
 def draw_rings(ring_thickness, number_of_rings, radius_array):
