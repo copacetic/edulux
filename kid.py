@@ -2,7 +2,7 @@ import simulator as sim
 import random
 import time
 
-sim.init(True, False)
+sim.init(True, True)
 
 ######### Even Group ###########
 
@@ -26,8 +26,22 @@ all_group = sim.Group(sim.light_list,False)
 
 #################################
 
+########## Ring Group ###########
+
+ring_list = []
+ring_numbs = [(0,4),(5,20),(21,36),(37,52),(53,68),(69,112),(113,166),(167,230),(231,296),(297,324),(325,332)]
+
+for i in range(
+
+
+
+
+
+#################################
+
+
 for i in range(odd_group.length()):
-    odd_group[i].set_color((0,0,255))
+    #odd_group[i].set_color((0,0,255))
     time.sleep(0.01)
 
 sim.keep_run()
