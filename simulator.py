@@ -93,17 +93,17 @@ def compute_lights(number_of_rings, ring_thickness, light_radius, radius_array):
     ring_six_difference = (54-1, 210, 3)
     ring_seven_difference = (64-1, 209, 2)
     ring_eight_difference = (118-53, 209, 1)
-    ring_nine_difference = (52-25, 145.6, 1, 60, 12/4, 7)
-    ring_ten_difference = (24-17, 120, 1, 84.55, 66/4, 2) 
+    ring_nine_difference = (52-25, 145.6, 1, 60.0, 12/4, 7)
+    ring_ten_difference = (24-17, 137.72, 1, 84.48, 65.45/4, 2) 
     ring_array = [ring_zero_difference, ring_one_difference, ring_two_difference, ring_three_difference, ring_four_difference, ring_five_difference, ring_six_difference, ring_seven_difference, ring_eight_difference, ring_nine_difference, ring_ten_difference]
     light_id = 0
     count3 = 107
     count2 = 124
     count1 = 118
 
-    acc_angle = 0
     for ring_number in range(number_of_rings):
         number_of_lights = ring_array[ring_number][0]+ 1
+        acc_angle = 0
         for light_number in range (number_of_lights):
             if ring_number > 8:
                 print ring_number
