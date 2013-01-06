@@ -14,7 +14,7 @@ c_darkgrey = 20,20,20
 c_lightgrey = 150,150,150
 
 pos=[100,100]
-radius_array = [30,40,30,30,30,40,50,50,40]
+radius_array = [30,40,30,30,30,40,50,50,40,40]
 size = width,height = 900,800
 center = width/2,height/2
 pygame.display.set_caption("Fountain Simulation")
@@ -99,15 +99,21 @@ def compute_lights(number_of_rings, ring_thickness, light_radius, radius_array):
     count3 = 107
     count2 = 124
     count1 = 118
-    for ring_number in range (number_of_rings):
+    c = 1
+
+    acc_angle = 0
+    for ring_number in range(number_of_rings):
         number_of_lights = ring_array[ring_number][0]+ 1
+	print number_of_lights
         for light_number in range (number_of_lights):
-            if ring_number > 7:
-                print 360.0*light_number/(ring_array[ring_number][0]*12/4)
-                radians = -math.radians(360.0*light_number/(ring_array[ring_number][0]*12/4)) + math.radians(ring_array[ring_number][1])
-                acc_angle = 0
-                if light_number%7 == 0:
-                    acc_angle = math.radians(60) - radians
+            if ring_number > 8:
+                print c, ring_number
+		c+=1
+                #print 360.0*light_number/(ring_array[ring_number][0]*12/4)
+                radians = -math.radians(360.0*light_number/(ring_array[ring_number][0]*3)) + math.radians(ring_array[ring_number][1])
+                if light_number%7 == 0 and light_number != 0:
+		    print 'monkey'
+                    acc_angle += math.radians(60) - radians
                 x = (ring_thickness/2 + radius_array[ring_number])*math.cos(radians+acc_angle) + center[0]
                 y = (ring_thickness/2 + radius_array[ring_number])*math.sin(radians+acc_angle) + center[1]
             else:
