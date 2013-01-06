@@ -63,7 +63,7 @@ class Light:
         self.color = color
         self.draw()
         pygame.display.flip()
-
+        #hayg.set_light(self.universe,(self.real_id*(3-2)),(self.real_id(3-1)),(self.real_id(3-0)),color[0],color[1],color[2])  
     def off():
         self.set_color(c_lightgrey)
 
@@ -76,7 +76,6 @@ class Light:
 
         #real_label = font.render(str(self.real_id), 1, c_white)
         #screen.blit(real_label, (self.pos[0]-10,self.pos[1]-10))
-
 
 def draw_rings(ring_thickness, number_of_rings, radius_array):
     for ring_numb in reversed(range (0,number_of_rings)):
@@ -145,6 +144,12 @@ def draw_diagram(ring_thickness, number_of_rings, light_radius, radius_array):
     compute_lights(number_of_rings, ring_thickness, light_radius, radius_array)
     draw_lights()
 
+"""
+def flush()
+    for i in range(1,4)
+        hayg.flush(i)
+"""
+     
 def init(should_show_ring, should_show_numb):
     global showRings, showNumb
 
