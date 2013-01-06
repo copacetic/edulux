@@ -95,6 +95,7 @@ int add_universe(int universe)
 	artnet_set_bcast_limit(srv, bcast_limit);
 
 	dmx_t * dmx = new dmx_t[MAX_CHANNELS+10];
+	memset(dmx, 0, (MAX_CHANNELS+10)*sizeof(dmx_t));
 
 	Universe * uni = new Universe;
 	uni->universe_id = universe;
@@ -126,6 +127,8 @@ int close_universe(int universe)
 	if( found == true )
 	{
 		delete universes[i];
+		if( i != univ_size-1)
+			universes[i] = universes[univ_size-1];
 		univ_size--;
 
 	}else{
